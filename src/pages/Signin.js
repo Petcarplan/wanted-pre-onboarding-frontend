@@ -15,7 +15,7 @@ export default function Signin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem) {
+    if (localStorage.getItem('token')) {
       navigate('/todo');
     }
   }, []);
@@ -44,7 +44,8 @@ export default function Signin() {
       })
       .catch(err => {
         console.log(err);
-        alert('로그인 실패');
+        alert('로그인 실패 회원가입을 하십시오');
+        navigate('/signup');
       });
   };
 
@@ -89,6 +90,9 @@ export default function Signin() {
         >
           로그인
         </button>
+        <button className="signup_button" onClick={() => navigate('/signup')}>
+          계정이 없으신가요?
+        </button>
       </div>
     </LoginContainer>
   );
@@ -111,6 +115,12 @@ const LoginContainer = styled.div`
     button {
       margin: 10px 0px;
       height: 30px;
+    }
+    .signup_button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 `;
