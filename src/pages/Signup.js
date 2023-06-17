@@ -15,7 +15,7 @@ export default function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem) {
+    if (localStorage.getItem('token')) {
       navigate('/todo');
     }
   }, []);
@@ -85,6 +85,9 @@ export default function Signup() {
         >
           회원가입
         </button>
+        <button className="login_button" onClick={() => navigate('/signin')}>
+          이미 계정이 있으신가요?
+        </button>
       </div>
     </SignupContainer>
   );
@@ -108,6 +111,12 @@ const SignupContainer = styled.div`
     button {
       margin: 10px 0px;
       height: 30px;
+    }
+    .login_button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 `;

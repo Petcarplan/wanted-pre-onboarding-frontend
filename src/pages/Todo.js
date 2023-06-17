@@ -12,7 +12,7 @@ export default function Todo() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem) {
+    if (!localStorage.getItem('token')) {
       navigate('/signin');
     }
   }, []);
@@ -85,6 +85,15 @@ export default function Todo() {
             );
           })}
       </div>
+      <button
+        className="logout_button"
+        onClick={() => {
+          localStorage.removeItem('token');
+          navigate('/signin');
+        }}
+      >
+        로그아웃
+      </button>
     </TodoWrapper>
   );
 }
@@ -117,5 +126,9 @@ const TodoWrapper = styled.div`
         font-size: 20px;
       }
     }
+  }
+  .logout_button {
+    font-size: 20px;
+    padding: 5px;
   }
 `;

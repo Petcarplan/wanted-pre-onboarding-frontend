@@ -7,7 +7,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem) {
+    if (localStorage.getItem('token')) {
       navigate('/todo');
     }
   }, []);
