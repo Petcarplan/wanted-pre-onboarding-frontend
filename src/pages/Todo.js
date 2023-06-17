@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Todolist from '../component/Todolist';
+import styled from 'styled-components';
 
 export default function Todo() {
   const [content, setContent] = useState('');
@@ -48,27 +49,64 @@ export default function Todo() {
   useEffect(() => getContentList(), []);
 
   return (
-    <>
-      <input
-        data-testid="new-todo-input"
-        onChange={e => setContent(e.target.value)}
-      />
-      <button data-testid="new-todo-add-button" onClick={createContent}>
-        추가
-      </button>
-      {savedContent &&
-        savedContent.map(el => {
-          return (
-            <Todolist
-              key={el.id}
-              todo={el.todo}
-              id={el.id}
-              content={content}
-              setcontent={setContent}
-              getContentList={getContentList}
-            />
-          );
-        })}
-    </>
+    <TodoWrapper>
+      <div className="todo_contents">
+        <div className="contents_wrapper">
+          <input
+            data-testid="new-todo-input"
+            onChange={e => setContent(e.target.value)}
+            placeholder="할일을 추가해보세요"
+          />
+          <button data-testid="new-todo-add-button" onClick={createContent}>
+            +
+          </button>
+        </div>
+
+        {savedContent &&
+          savedContent.map(el => {
+            return (
+              <Todolist
+                key={el.id}
+                todo={el.todo}
+                id={el.id}
+                content={content}
+                setcontent={setContent}
+                getContentList={getContentList}
+              />
+            );
+          })}
+      </div>
+    </TodoWrapper>
   );
 }
+
+const TodoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .todo_contents {
+    padding: 30px 30px;
+    width: 50%;
+    .contents_wrapper {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid gray;
+      height: 40px;
+      margin-bottom: 20px;
+      input {
+        border: none;
+        width: 100%;
+        padding: 0 10px;
+        font-size: 20px;
+      }
+      button {
+        width: 7%;
+        border: none;
+        background: none;
+        margin: 10px 0px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+    }
+  }
+`;
