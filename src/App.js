@@ -16,9 +16,7 @@ function App() {
     <AppWrapper>
       <h1>Todo List</h1>
       <Signin />
-      <div className="signup_button_wrapper">
-        <button onClick={() => navigate('/signup')}>회원가입하기</button>
-      </div>
+      <div className="signup_button_wrapper"></div>
     </AppWrapper>
   );
 }
