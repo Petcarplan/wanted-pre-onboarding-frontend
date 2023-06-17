@@ -14,6 +14,12 @@ export default function Signup() {
   const apiAddress = `https://www.pre-onboarding-selection-task.shop/auth/signup`;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem) {
+      navigate('/todo');
+    }
+  }, []);
+
   const successSignup = () => {
     navigate('/signin');
   };
