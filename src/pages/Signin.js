@@ -1,4 +1,4 @@
-import { useState, useEffect, useDebugValue } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ export default function Signin() {
         }
       )
       .then(res => {
-        localStorage.setItem('token', res.access_token);
+        localStorage.setItem('token', res.data.access_token);
         setSignedin(true);
       })
       .catch(err => {
@@ -54,12 +54,14 @@ export default function Signin() {
   ) : (
     <>
       <input
+        type="text"
         data-testid="email-input"
         onChange={e => {
           setUser(e.target.value);
         }}
       />
       <input
+        type="password"
         data-testid="password-input"
         onChange={e => {
           setPw(e.target.value);

@@ -54,10 +54,12 @@ export default function Signup() {
   ) : (
     <>
       <input
+        type="text"
         data-testid="email-input"
         onChange={e => setUser(e.target.value)}
       />
       <input
+        type="password"
         data-testid="password-input"
         onChange={e => setPw(e.target.value)}
       />
