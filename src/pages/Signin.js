@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signin() {
-  const [user, setUser] = useState();
-  const [pw, setPw] = useState();
+  const [user, setUser] = useState('');
+  const [pw, setPw] = useState('');
   const [signedin, setSignedin] = useState(false);
+
+  const [validemail, setValidEmail] = useState(false);
+  const [validpw, setValidPw] = useState(false);
 
   const apiAddress = `https://www.pre-onboarding-selection-task.shop/auth/signin`;
   const navigate = useNavigate();
@@ -29,7 +32,7 @@ export default function Signin() {
         }
       )
       .then(res => {
-        localStorage.setItem('token', res.access_token);
+        localStorage.setItem('token', res.data.access_token);
         setSignedin(true);
       })
       .catch(err => {
@@ -38,23 +41,37 @@ export default function Signin() {
       });
   };
 
+  useEffect(() => {
+    setValidEmail(user.includes('@'));
+  }, [user]);
+
+  useEffect(() => {
+    pw.length >= 8 ? setValidPw(true) : setValidPw(false);
+  }, [pw]);
+
   return signedin ? (
     successLogin()
   ) : (
     <>
       <input
+        type="text"
         data-testid="email-input"
         onChange={e => {
           setUser(e.target.value);
         }}
       />
       <input
+        type="password"
         data-testid="password-input"
         onChange={e => {
           setPw(e.target.value);
         }}
       />
-      <button data-testid="signin-button" onClick={callApi}>
+      <button
+        data-testid="signin-button"
+        onClick={callApi}
+        disabled={!validemail || !validpw ? true : false}
+      >
         로그인
       </button>
     </>
